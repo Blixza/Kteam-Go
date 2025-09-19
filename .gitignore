@@ -1,4 +1,4 @@
-/frontend/node_modules/
+/Frontend/node_modules/
 /frontend/dist/
 /frontend/.env
 
@@ -10,3 +10,5 @@
 *.log
 *.idea/
 *.iml
+
+*.db
