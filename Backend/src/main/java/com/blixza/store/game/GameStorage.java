@@ -1,11 +1,20 @@
 package com.blixza.store.game;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "games")
 public class GameStorage {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private int price;
     private String creator;
-    private String wishlist;
+
+    //no-arg constructor (REQUIRED)
+    private GameStorage() {};
 
     public GameStorage(int id, String name, int price, String creator) {
         this.id = id;

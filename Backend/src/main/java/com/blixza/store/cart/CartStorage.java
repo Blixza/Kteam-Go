@@ -1,9 +1,17 @@
 package com.blixza.store.cart;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "cart")
 public class CartStorage {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int userId;
     private int gameId;
+
+    private CartStorage() {}
 
     public CartStorage(int id, int userId, int gameId) {
         this.id = id;

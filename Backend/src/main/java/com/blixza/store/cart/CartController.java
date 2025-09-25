@@ -1,68 +1,40 @@
 package com.blixza.store.cart;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.blixza.store.repo.CartRepo;
+import com.blixza.store.repo.WishlistRepo;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
+@RequestMapping("/cart")
 public class CartController {
-    @GetMapping("cart")
+
+    @Autowired
+    private CartRepo cRepo;
+
+    @GetMapping
     public List<CartStorage> getCart() throws SQLException {
-        var url = "jdbc:sqlite:database.db";
-        var sql = "SELECT id, user_id, game_id FROM Cart";
-        List<CartStorage> list = new ArrayList<>();
-
-        try (var conn = DriverManager.getConnection(url);
-            var stmt = conn.createStatement();
-            var rs = stmt.executeQuery(sql)
-        ) {
-            while (rs.next()) {
-                list.add(new CartStorage(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getInt(3)
-                ));
-            }
-        }
-        return list;
+        return cRepo.findAll();
     }
 
-    @PostMapping("cart/add")
-    public void addToCart(@RequestBody CartStorage request) throws SQLException {
-        var url = "jdbc:sqlite:database.db";
-
-        try (var conn = DriverManager.getConnection(url)) {
-            conn.setAutoCommit(false);
-
-            try (var stmt = conn.prepareStatement("INSERT INTO Cart (user_id, game_id) VALUES (?, ?)")) {
-                stmt.setInt(1, request.getUserId());
-                stmt.setInt(2, request.getGameId());
-                stmt.executeUpdate();
-            }
-
-            conn.commit();
-        }
+    @PostMapping("/add")
+    public ResponseEntity<Void> addToCart(@RequestBody CartStorage request) throws SQLException {
+        cRepo.save(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("cart/remove")
-    public void removeFromCart(@RequestBody CartStorage request) throws SQLException {
-        var url = "jdbc:sqlite:database.db";
-
-        try (var conn = DriverManager.getConnection(url)) {
-            conn.setAutoCommit(false);
-
-            try (var stmt = conn.prepareStatement("DELETE FROM Cart WHERE user_id = ? AND game_id = ?")) {
-                stmt.setInt(1, request.getUserId());
-                stmt.setInt(2, request.getGameId());
-                stmt.executeUpdate();
-            }
-            conn.commit();
-        }
+    @PostMapping("/remove")
+    @Transactional
+    public ResponseEntity<Void> removeFromCart(@RequestBody Map<String, Integer> request) throws SQLException {
+        cRepo.deleteByUserIdAndGameId(request.get("userId"), request.get("gameId"));
+        return ResponseEntity.noContent().build();
     }
 }

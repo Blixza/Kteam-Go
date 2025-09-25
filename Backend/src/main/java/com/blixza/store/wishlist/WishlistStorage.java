@@ -1,27 +1,45 @@
 package com.blixza.store.wishlist;
 
-public class WishlistRequest {
-    private int userId;
-    private int gameId;
+import com.blixza.store.game.GameStorage;
+import com.blixza.store.user.UserStorage;
+import jakarta.persistence.*;
 
-    public WishlistRequest(int userId, int gameId) {
-        this.userId = userId;
-        this.gameId = gameId;
+@Entity
+@Table(name = "wishlist")
+public class WishlistStorage {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserStorage user;
+
+    @ManyToOne
+    @JoinColumn(name = "game_id", nullable = false)
+    private GameStorage game;
+
+    public WishlistStorage() {}
+
+    public WishlistStorage(Integer id, UserStorage user, GameStorage game) {
+        this.id = id;
+        this.user = user;
+        this.game = game;
     }
 
-    public int getUserId() {
-        return userId;
+    public GameStorage getGame() {
+        return game;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setGame(GameStorage game) {
+        this.game = game;
     }
 
-    public int getGameId() {
-        return gameId;
+    public UserStorage getUser() {
+        return user;
     }
 
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
+    public void setUser(UserStorage user) {
+        this.user = user;
     }
 }
