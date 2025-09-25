@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import { cart } from '../cart';
 
@@ -50,7 +50,7 @@ async function addOrRemoveFromCart(game: Game) {
 
 async function getGames() {
   try {
-    const res = await axios.get(url.value + '/games/');
+    const res = await axios.get(url.value + '/games');
     games.value = res.data;
   } catch (err) {
     if (err instanceof Error) {

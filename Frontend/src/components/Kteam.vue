@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineAsyncComponent, computed } from 'vue';
+import { ref, defineAsyncComponent, computed, watch } from 'vue';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-json';
 import { Settings } from 'lucide-vue-next';
@@ -26,6 +26,12 @@ function loadCart() {
 
 const showCart = computed(() => cart.value.length > 0);
 
+watch(cart, (newVal) => {
+  if (newVal.length === 0 && currentComponent.value === 'Cart') {
+    currentComponent.value = null;
+  }
+});
+
 const AsyncProfile = defineAsyncComponent(() => import('./Profile.vue'));
 const AsyncStore = defineAsyncComponent(() => import('./Store.vue'));
 const AsyncCart = defineAsyncComponent(() => import('./Cart.vue'));
@@ -43,9 +49,9 @@ const AsyncCart = defineAsyncComponent(() => import('./Cart.vue'));
     </button>
   </div>
 
-  <button class="options-button">
+  <!-- <button class="options-button">
     <Settings />
-  </button>
+  </button> -->
   <component
     :is="
       currentComponent === 'Profile'

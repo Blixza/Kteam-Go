@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^13.9.0",
     "@wdns/vue-code-block": "^2.3.5",
     "axios": "^1.12.2",
     "gsap": "^3.13.0",
