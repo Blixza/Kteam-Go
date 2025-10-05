@@ -2,56 +2,71 @@
 import { ref, defineAsyncComponent, computed, watch } from 'vue';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-json';
-import { Settings } from 'lucide-vue-next';
 import { cart } from '../cart';
+import type { Game } from './Store.vue';
+import GameView from './Game.vue';
 
-const currentComponent = ref<string | null>(null);
+const currentComponent = ref<string>('Kteam');
+const lastComponent = ref<string>('Kteam');
+const selectedGame = ref<Game | null>(null);
+const theme = ref('dark-theme');
 
-function loadProfile() {
-  currentComponent.value =
-    currentComponent.value === 'Profile' ? null : 'Profile';
+function openGame(game: Game) {
+  lastComponent.value = currentComponent.value;
+  selectedGame.value = game;
+  currentComponent.value = 'Game';
 }
 
-function loadStore() {
-  currentComponent.value = currentComponent.value === 'Store' ? null : 'Store';
+function backFromGame() {
+  currentComponent.value = lastComponent.value;
+  selectedGame.value = null;
 }
 
-function loadKteam() {
-  currentComponent.value = currentComponent.value === 'Kteam' ? null : 'Kteam';
+function setTheme(name: string) {
+  theme.value = name;
+  document.documentElement.className = name;
 }
 
-function loadCart() {
-  currentComponent.value = currentComponent.value === 'Cart' ? null : 'Cart';
+function loadScene(name: string) {
+  currentComponent.value = currentComponent.value === name ? 'Kteam' : name;
 }
 
 const showCart = computed(() => cart.value.length > 0);
 
 watch(cart, (newVal) => {
   if (newVal.length === 0 && currentComponent.value === 'Cart') {
-    currentComponent.value = null;
+    currentComponent.value = 'Kteam';
   }
 });
 
 const AsyncProfile = defineAsyncComponent(() => import('./Profile.vue'));
 const AsyncStore = defineAsyncComponent(() => import('./Store.vue'));
 const AsyncCart = defineAsyncComponent(() => import('./Cart.vue'));
+const AsyncUpload = defineAsyncComponent(() => import('./Upload.vue'));
 
 (window as any).Prism = Prism; // doesn't works without this
 </script>
 
 <template>
   <div class="top-buttons">
-    <button class="kteam-button" @click="loadKteam">Kteam</button>
-    <button class="store-button" @click="loadStore">Store</button>
-    <button class="profile-button" @click="loadProfile">Profile</button>
-    <button class="cart-button" v-show="showCart" @click="loadCart">
+    <button id="kteam-button" @click="loadScene('Kteam')">Kteam</button>
+    <button id="store-button" @click="loadScene('Store')">Store</button>
+    <button id="profile-button" @click="loadScene('Profile')">Profile</button>
+    <button id="cart-button" v-show="showCart" @click="loadScene('Cart')">
       Cart ({{ cart.length }})
     </button>
+    <button id="upload-button" @click="loadScene('Upload')">Upload game</button>
   </div>
-
-  <!-- <button class="options-button">
-    <Settings />
-  </button> -->
+  <div class="theme-button">
+    <button
+      @click="setTheme(theme == 'pink-theme' ? 'dark-theme' : 'pink-theme')"
+    >
+      Theme: {{ theme }}
+    </button>
+  </div>
+  <div class="debug-button">
+    <button id="debug-button" @click="console.log('DEBUG')">DEBUG</button>
+  </div>
   <component
     :is="
       currentComponent === 'Profile'
@@ -60,14 +75,23 @@ const AsyncCart = defineAsyncComponent(() => import('./Cart.vue'));
         ? AsyncStore
         : currentComponent === 'Cart'
         ? AsyncCart
+        : currentComponent === 'Upload'
+        ? AsyncUpload
+        : currentComponent === 'Game' && selectedGame
+        ? GameView
         : null
     "
+    @view-game="openGame"
+    v-bind="currentComponent === 'Game' ? { game: selectedGame } : {}"
+    @back="backFromGame"
   />
 </template>
 
 <style>
 .top-buttons {
   position: absolute;
+  position: fixed;
+
   top: 0;
   left: 0;
 
@@ -75,22 +99,32 @@ const AsyncCart = defineAsyncComponent(() => import('./Cart.vue'));
   margin-left: 10px;
 
   padding: 10px;
+  z-index: 1000;
 }
 
 .top-buttons button {
   margin-right: 10px;
 }
 
-.options-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-
+.debug-button {
   position: absolute;
-  top: 10px;
+  position: fixed;
+
+  bottom: 10px;
   right: 10px;
 
   padding: 10px;
+  z-index: 1000;
+}
+
+.theme-button {
+  position: absolute;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+
+  padding: 10px;
+  z-index: 1000;
 }
 
 /* .top-buttons button:last-child {

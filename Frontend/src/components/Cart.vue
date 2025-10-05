@@ -22,7 +22,7 @@ const emit = defineEmits(['close']);
 
 async function removeFromCart(game: Game) {
   try {
-    var body = {
+    let body = {
       userId: 1,
       gameId: game.id,
     };
@@ -40,7 +40,7 @@ async function removeFromCart(game: Game) {
 
 async function addOrRemoveFromWishlsit(game: Game) {
   try {
-    var body = {
+    let body = {
       userId: 1,
       gameId: game.id,
     };
@@ -117,7 +117,7 @@ onMounted(async () => {
       >
         <img
           class="banner"
-          :src="'src/assets/' + game.name.split(' ').join('_') + '.jpg'"
+          :src="'/images/' + game.name.split(' ').join('_') + '.jpg'"
           :alt="game.name"
         />
         <h2>{{ game.name }}</h2>

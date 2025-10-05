@@ -2,6 +2,8 @@
 /frontend/dist/
 /frontend/.env
 
+/Backend/
+
 /backend/target/
 /backend/.classpath
 /backend/.project

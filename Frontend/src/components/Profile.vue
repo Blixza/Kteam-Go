@@ -14,7 +14,9 @@ onMounted(() => {
 
 async function getNickname() {
   try {
-    const res = await axios.get(url.value + '/users/me/nickname');
+    const res = await axios.get(url.value + '/users/me/nickname', {
+      params: { id: 1 },
+    });
     nickname.value = res.data;
   } catch (err) {
     if (err instanceof Error) {
@@ -25,7 +27,9 @@ async function getNickname() {
 
 async function getUsername() {
   try {
-    const res = await axios.get(url.value + '/users/me/username');
+    const res = await axios.get(url.value + '/users/me/username', {
+      params: { id: 1 },
+    });
     username.value = res.data;
   } catch (err) {
     if (err instanceof Error) {
@@ -36,19 +40,19 @@ async function getUsername() {
 </script>
 
 <template>
-  <div class="dark-box">
+  <div class="profile">
     <h1>Nickname: {{ nickname }}</h1>
     <h2>Username: @{{ username }}</h2>
   </div>
 </template>
 
 <style>
-.dark-box {
-  background-color: #333;
+.profile {
   color: white;
   padding: 16px;
   width: 750px;
   height: 600px;
   border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>
