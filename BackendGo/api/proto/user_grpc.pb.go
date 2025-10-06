@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_GetUsers_FullMethodName   = "/user.UserService/GetUsers"
-	UserService_CreateUser_FullMethodName = "/user.UserService/CreateUser"
+	UserService_GetUsers_FullMethodName    = "/user.UserService/GetUsers"
+	UserService_CreateUser_FullMethodName  = "/user.UserService/CreateUser"
+	UserService_GetUserInfo_FullMethodName = "/user.UserService/GetUserInfo"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -29,6 +30,7 @@ const (
 type UserServiceClient interface {
 	GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	GetUserInfo(ctx context.Context, in *GetUserInfoRequest, opts ...grpc.CallOption) (*GetUserInfoResponse, error)
 }
 
 type userServiceClient struct {
@@ -59,12 +61,23 @@ func (c *userServiceClient) CreateUser(ctx context.Context, in *CreateUserReques
 	return out, nil
 }
 
+func (c *userServiceClient) GetUserInfo(ctx context.Context, in *GetUserInfoRequest, opts ...grpc.CallOption) (*GetUserInfoResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserInfoResponse)
+	err := c.cc.Invoke(ctx, UserService_GetUserInfo_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
 type UserServiceServer interface {
 	GetUsers(context.Context, *GetUsersRequest) (*GetUsersResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	GetUserInfo(context.Context, *GetUserInfoRequest) (*GetUserInfoResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedUserServiceServer) GetUsers(context.Context, *GetUsersRequest
 }
 func (UnimplementedUserServiceServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserInfo(context.Context, *GetUserInfoRequest) (*GetUserInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserInfo not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -138,6 +154,24 @@ func _UserService_CreateUser_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetUserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUserInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserInfo(ctx, req.(*GetUserInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,506 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateUser",
 			Handler:    _UserService_CreateUser_Handler,
+		},
+		{
+			MethodName: "GetUserInfo",
+			Handler:    _UserService_GetUserInfo_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "api/proto/user.proto",
+}
+
+const (
+	WishlistService_GetUserWishlist_FullMethodName    = "/user.WishlistService/GetUserWishlist"
+	WishlistService_AddToWishlist_FullMethodName      = "/user.WishlistService/AddToWishlist"
+	WishlistService_RemoveFromWishlist_FullMethodName = "/user.WishlistService/RemoveFromWishlist"
+)
+
+// WishlistServiceClient is the client API for WishlistService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type WishlistServiceClient interface {
+	GetUserWishlist(ctx context.Context, in *GetUserWishlistRequest, opts ...grpc.CallOption) (*GetUserWishlistResponse, error)
+	AddToWishlist(ctx context.Context, in *AddToWishlistRequest, opts ...grpc.CallOption) (*AddToWishlistResponse, error)
+	RemoveFromWishlist(ctx context.Context, in *RemoveFromWishlistRequest, opts ...grpc.CallOption) (*RemoveFromWishlistResponse, error)
+}
+
+type wishlistServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewWishlistServiceClient(cc grpc.ClientConnInterface) WishlistServiceClient {
+	return &wishlistServiceClient{cc}
+}
+
+func (c *wishlistServiceClient) GetUserWishlist(ctx context.Context, in *GetUserWishlistRequest, opts ...grpc.CallOption) (*GetUserWishlistResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserWishlistResponse)
+	err := c.cc.Invoke(ctx, WishlistService_GetUserWishlist_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishlistServiceClient) AddToWishlist(ctx context.Context, in *AddToWishlistRequest, opts ...grpc.CallOption) (*AddToWishlistResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddToWishlistResponse)
+	err := c.cc.Invoke(ctx, WishlistService_AddToWishlist_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *wishlistServiceClient) RemoveFromWishlist(ctx context.Context, in *RemoveFromWishlistRequest, opts ...grpc.CallOption) (*RemoveFromWishlistResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveFromWishlistResponse)
+	err := c.cc.Invoke(ctx, WishlistService_RemoveFromWishlist_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// WishlistServiceServer is the server API for WishlistService service.
+// All implementations must embed UnimplementedWishlistServiceServer
+// for forward compatibility.
+type WishlistServiceServer interface {
+	GetUserWishlist(context.Context, *GetUserWishlistRequest) (*GetUserWishlistResponse, error)
+	AddToWishlist(context.Context, *AddToWishlistRequest) (*AddToWishlistResponse, error)
+	RemoveFromWishlist(context.Context, *RemoveFromWishlistRequest) (*RemoveFromWishlistResponse, error)
+	mustEmbedUnimplementedWishlistServiceServer()
+}
+
+// UnimplementedWishlistServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedWishlistServiceServer struct{}
+
+func (UnimplementedWishlistServiceServer) GetUserWishlist(context.Context, *GetUserWishlistRequest) (*GetUserWishlistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserWishlist not implemented")
+}
+func (UnimplementedWishlistServiceServer) AddToWishlist(context.Context, *AddToWishlistRequest) (*AddToWishlistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddToWishlist not implemented")
+}
+func (UnimplementedWishlistServiceServer) RemoveFromWishlist(context.Context, *RemoveFromWishlistRequest) (*RemoveFromWishlistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveFromWishlist not implemented")
+}
+func (UnimplementedWishlistServiceServer) mustEmbedUnimplementedWishlistServiceServer() {}
+func (UnimplementedWishlistServiceServer) testEmbeddedByValue()                         {}
+
+// UnsafeWishlistServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to WishlistServiceServer will
+// result in compilation errors.
+type UnsafeWishlistServiceServer interface {
+	mustEmbedUnimplementedWishlistServiceServer()
+}
+
+func RegisterWishlistServiceServer(s grpc.ServiceRegistrar, srv WishlistServiceServer) {
+	// If the following call pancis, it indicates UnimplementedWishlistServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&WishlistService_ServiceDesc, srv)
+}
+
+func _WishlistService_GetUserWishlist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserWishlistRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishlistServiceServer).GetUserWishlist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WishlistService_GetUserWishlist_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishlistServiceServer).GetUserWishlist(ctx, req.(*GetUserWishlistRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WishlistService_AddToWishlist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddToWishlistRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishlistServiceServer).AddToWishlist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WishlistService_AddToWishlist_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishlistServiceServer).AddToWishlist(ctx, req.(*AddToWishlistRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WishlistService_RemoveFromWishlist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveFromWishlistRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WishlistServiceServer).RemoveFromWishlist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WishlistService_RemoveFromWishlist_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WishlistServiceServer).RemoveFromWishlist(ctx, req.(*RemoveFromWishlistRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// WishlistService_ServiceDesc is the grpc.ServiceDesc for WishlistService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var WishlistService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user.WishlistService",
+	HandlerType: (*WishlistServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetUserWishlist",
+			Handler:    _WishlistService_GetUserWishlist_Handler,
+		},
+		{
+			MethodName: "AddToWishlist",
+			Handler:    _WishlistService_AddToWishlist_Handler,
+		},
+		{
+			MethodName: "RemoveFromWishlist",
+			Handler:    _WishlistService_RemoveFromWishlist_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "api/proto/user.proto",
+}
+
+const (
+	CartService_GetUserCart_FullMethodName    = "/user.CartService/GetUserCart"
+	CartService_AddToCart_FullMethodName      = "/user.CartService/AddToCart"
+	CartService_RemoveFromCart_FullMethodName = "/user.CartService/RemoveFromCart"
+)
+
+// CartServiceClient is the client API for CartService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type CartServiceClient interface {
+	GetUserCart(ctx context.Context, in *GetUserCartRequest, opts ...grpc.CallOption) (*GetUserCartResponse, error)
+	AddToCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*AddToCartResponse, error)
+	RemoveFromCart(ctx context.Context, in *RemoveFromCartRequest, opts ...grpc.CallOption) (*RemoveFromCartResponse, error)
+}
+
+type cartServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewCartServiceClient(cc grpc.ClientConnInterface) CartServiceClient {
+	return &cartServiceClient{cc}
+}
+
+func (c *cartServiceClient) GetUserCart(ctx context.Context, in *GetUserCartRequest, opts ...grpc.CallOption) (*GetUserCartResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserCartResponse)
+	err := c.cc.Invoke(ctx, CartService_GetUserCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cartServiceClient) AddToCart(ctx context.Context, in *AddToCartRequest, opts ...grpc.CallOption) (*AddToCartResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddToCartResponse)
+	err := c.cc.Invoke(ctx, CartService_AddToCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cartServiceClient) RemoveFromCart(ctx context.Context, in *RemoveFromCartRequest, opts ...grpc.CallOption) (*RemoveFromCartResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveFromCartResponse)
+	err := c.cc.Invoke(ctx, CartService_RemoveFromCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CartServiceServer is the server API for CartService service.
+// All implementations must embed UnimplementedCartServiceServer
+// for forward compatibility.
+type CartServiceServer interface {
+	GetUserCart(context.Context, *GetUserCartRequest) (*GetUserCartResponse, error)
+	AddToCart(context.Context, *AddToCartRequest) (*AddToCartResponse, error)
+	RemoveFromCart(context.Context, *RemoveFromCartRequest) (*RemoveFromCartResponse, error)
+	mustEmbedUnimplementedCartServiceServer()
+}
+
+// UnimplementedCartServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedCartServiceServer struct{}
+
+func (UnimplementedCartServiceServer) GetUserCart(context.Context, *GetUserCartRequest) (*GetUserCartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserCart not implemented")
+}
+func (UnimplementedCartServiceServer) AddToCart(context.Context, *AddToCartRequest) (*AddToCartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddToCart not implemented")
+}
+func (UnimplementedCartServiceServer) RemoveFromCart(context.Context, *RemoveFromCartRequest) (*RemoveFromCartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveFromCart not implemented")
+}
+func (UnimplementedCartServiceServer) mustEmbedUnimplementedCartServiceServer() {}
+func (UnimplementedCartServiceServer) testEmbeddedByValue()                     {}
+
+// UnsafeCartServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CartServiceServer will
+// result in compilation errors.
+type UnsafeCartServiceServer interface {
+	mustEmbedUnimplementedCartServiceServer()
+}
+
+func RegisterCartServiceServer(s grpc.ServiceRegistrar, srv CartServiceServer) {
+	// If the following call pancis, it indicates UnimplementedCartServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&CartService_ServiceDesc, srv)
+}
+
+func _CartService_GetUserCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CartServiceServer).GetUserCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CartService_GetUserCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CartServiceServer).GetUserCart(ctx, req.(*GetUserCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CartService_AddToCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddToCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CartServiceServer).AddToCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CartService_AddToCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CartServiceServer).AddToCart(ctx, req.(*AddToCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CartService_RemoveFromCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveFromCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CartServiceServer).RemoveFromCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CartService_RemoveFromCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CartServiceServer).RemoveFromCart(ctx, req.(*RemoveFromCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// CartService_ServiceDesc is the grpc.ServiceDesc for CartService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var CartService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user.CartService",
+	HandlerType: (*CartServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetUserCart",
+			Handler:    _CartService_GetUserCart_Handler,
+		},
+		{
+			MethodName: "AddToCart",
+			Handler:    _CartService_AddToCart_Handler,
+		},
+		{
+			MethodName: "RemoveFromCart",
+			Handler:    _CartService_RemoveFromCart_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "api/proto/user.proto",
+}
+
+const (
+	GameService_GetGames_FullMethodName   = "/user.GameService/GetGames"
+	GameService_CreateGame_FullMethodName = "/user.GameService/CreateGame"
+)
+
+// GameServiceClient is the client API for GameService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type GameServiceClient interface {
+	GetGames(ctx context.Context, in *GetGamesRequest, opts ...grpc.CallOption) (*GetGamesResponse, error)
+	CreateGame(ctx context.Context, in *CreateGameRequest, opts ...grpc.CallOption) (*CreateGameResponse, error)
+}
+
+type gameServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewGameServiceClient(cc grpc.ClientConnInterface) GameServiceClient {
+	return &gameServiceClient{cc}
+}
+
+func (c *gameServiceClient) GetGames(ctx context.Context, in *GetGamesRequest, opts ...grpc.CallOption) (*GetGamesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetGamesResponse)
+	err := c.cc.Invoke(ctx, GameService_GetGames_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gameServiceClient) CreateGame(ctx context.Context, in *CreateGameRequest, opts ...grpc.CallOption) (*CreateGameResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateGameResponse)
+	err := c.cc.Invoke(ctx, GameService_CreateGame_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// GameServiceServer is the server API for GameService service.
+// All implementations must embed UnimplementedGameServiceServer
+// for forward compatibility.
+type GameServiceServer interface {
+	GetGames(context.Context, *GetGamesRequest) (*GetGamesResponse, error)
+	CreateGame(context.Context, *CreateGameRequest) (*CreateGameResponse, error)
+	mustEmbedUnimplementedGameServiceServer()
+}
+
+// UnimplementedGameServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedGameServiceServer struct{}
+
+func (UnimplementedGameServiceServer) GetGames(context.Context, *GetGamesRequest) (*GetGamesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGames not implemented")
+}
+func (UnimplementedGameServiceServer) CreateGame(context.Context, *CreateGameRequest) (*CreateGameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGame not implemented")
+}
+func (UnimplementedGameServiceServer) mustEmbedUnimplementedGameServiceServer() {}
+func (UnimplementedGameServiceServer) testEmbeddedByValue()                     {}
+
+// UnsafeGameServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to GameServiceServer will
+// result in compilation errors.
+type UnsafeGameServiceServer interface {
+	mustEmbedUnimplementedGameServiceServer()
+}
+
+func RegisterGameServiceServer(s grpc.ServiceRegistrar, srv GameServiceServer) {
+	// If the following call pancis, it indicates UnimplementedGameServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&GameService_ServiceDesc, srv)
+}
+
+func _GameService_GetGames_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGamesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GameServiceServer).GetGames(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GameService_GetGames_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GameServiceServer).GetGames(ctx, req.(*GetGamesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GameService_CreateGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateGameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GameServiceServer).CreateGame(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GameService_CreateGame_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GameServiceServer).CreateGame(ctx, req.(*CreateGameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// GameService_ServiceDesc is the grpc.ServiceDesc for GameService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var GameService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "user.GameService",
+	HandlerType: (*GameServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetGames",
+			Handler:    _GameService_GetGames_Handler,
+		},
+		{
+			MethodName: "CreateGame",
+			Handler:    _GameService_CreateGame_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

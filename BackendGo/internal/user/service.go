@@ -64,3 +64,18 @@ func (s *Service) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*p
 	// 	},
 	// }, nil
 }
+
+func (s *Service) GetUserInfo(ctx context.Context, req *pb.GetUserInfoRequest) (*pb.GetUserInfoResponse, error) {
+	user, err := s.repo.FindByID(req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.GetUserInfoResponse{
+		UserInfo: &pb.UserInfo{
+			Id: uint32(user.ID),
+			Username: user.Username,
+			Nickname: user.Nickname,
+		},
+	}, nil
+}

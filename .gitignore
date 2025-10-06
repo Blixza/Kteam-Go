@@ -3,11 +3,10 @@
 /frontend/.env
 
 /Backend/
-
-/backend/target/
-/backend/.classpath
-/backend/.project
-/backend/.settings/
+/Backend/target/
+/Backend/.classpath
+/Backend/.project
+/Backend/.settings/
 
 *.log
 *.idea/

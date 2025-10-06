@@ -28,34 +28,37 @@ const searchInput = ref<string>();
  */
 async function addOrRemoveFromCart(game: Game) {
   try {
-    let body = {
-      userId: 1,
-      gameId: game.id,
-    };
-
-    const isInCart = cart.value.some((c) => c.gameId === body.gameId);
+    console.log(game.id);
+    console.log(games.value);
+    const isInCart = cart.value.some((c) => c.gameId === game.id);
 
     if (!isInCart) {
-      await axios.post(url.value + '/cart/add', body);
+      await axios.post(url.value + `/users/${1}/cart/add`, {
+        userId: 1,
+        gameId: game.id,
+      });
       cart.value.push({
-        userId: body.userId,
-        gameId: body.gameId,
+        userId: 1,
+        gameId: game.id,
       });
       game.isInCart = true;
     } else {
-      await axios.post(url.value + '/cart/remove', body);
-      cart.value = cart.value.filter((c) => c.gameId !== body.gameId);
+      await axios.post(url.value + `/users/${1}/cart/remove`, {
+        userId: 1,
+        gameId: game.id,
+      });
+      cart.value = cart.value.filter((c) => c.gameId !== game.id);
       game.isInCart = false;
     }
   } catch (err) {
-    //TODO
+    console.log(err);
   }
 }
 
 async function getGames() {
   try {
     const res = await axios.get(url.value + '/games');
-    games.value = res.data;
+    games.value = res.data.games;
     console.log(games.value);
   } catch (err) {
     if (err instanceof Error) {
@@ -66,8 +69,8 @@ async function getGames() {
 
 async function initCart() {
   try {
-    const res = await axios.get(url.value + '/cart');
-    cart.value = res.data;
+    const res = await axios.get(url.value + `/users/${1}/cart`);
+    cart.value = res.data.cart;
     games.value.forEach((game) => {
       game.isInCart = cart.value.some((c) => c.gameId === game.id);
     });
@@ -78,8 +81,8 @@ async function initCart() {
 
 async function initWishlisted() {
   try {
-    const res = await axios.get(url.value + '/users/me/wishlist');
-    wishlist.value = res.data;
+    const res = await axios.get(url.value + `/users/${1}/wishlist`);
+    wishlist.value = res.data.wishlist;
     games.value.forEach((game) => {
       game.isWishlisted = wishlist.value.includes(game.id);
     });
@@ -91,18 +94,17 @@ async function initWishlisted() {
 async function addOrRemoveFromWishlsit(game: Game) {
   try {
     let body = {
-      userId: 1,
       gameId: game.id,
     };
 
     const isInWishlist = wishlist.value.includes(body.gameId);
 
     if (!isInWishlist) {
-      await axios.post(url.value + '/users/me/wishlist/add', body);
+      await axios.post(url.value + `/users/${1}/wishlist/add`, body);
       wishlist.value.push(game.id);
       game.isWishlisted = true;
     } else {
-      await axios.post(url.value + '/users/me/wishlist/remove', body);
+      await axios.post(url.value + `/users/${1}/wishlist/remove`, body);
       wishlist.value = wishlist.value.filter((id) => id !== game.id);
       game.isWishlisted = false;
     }

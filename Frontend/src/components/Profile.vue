@@ -14,10 +14,8 @@ onMounted(() => {
 
 async function getNickname() {
   try {
-    const res = await axios.get(url.value + '/users/me/nickname', {
-      params: { id: 1 },
-    });
-    nickname.value = res.data;
+    const res = await axios.get(url.value + `/users/${1}/info`);
+    nickname.value = res.data.userInfo.nickname;
   } catch (err) {
     if (err instanceof Error) {
       nickname.value = 'Failed to get nickname';
@@ -27,10 +25,8 @@ async function getNickname() {
 
 async function getUsername() {
   try {
-    const res = await axios.get(url.value + '/users/me/username', {
-      params: { id: 1 },
-    });
-    username.value = res.data;
+    const res = await axios.get(url.value + `/users/${1}/info`);
+    username.value = res.data.userInfo.username;
   } catch (err) {
     if (err instanceof Error) {
       username.value = 'Failed to get username';

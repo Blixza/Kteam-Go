@@ -26,3 +26,11 @@ func (r *Repository) Create(user *User) (*User, error) {
 	}
 	return user, nil
 }
+
+func (r *Repository) FindByID(id uint32) (*User, error) {
+    var user User
+    if err := r.db.First(&user, id).Error; err != nil {
+        return nil, err
+    }
+    return &user, nil
+}

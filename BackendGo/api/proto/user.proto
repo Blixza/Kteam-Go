@@ -19,6 +19,125 @@ service UserService {
       body: "*"
     };
   }
+
+  rpc GetUserInfo (GetUserInfoRequest) returns (GetUserInfoResponse) {
+    option (google.api.http) = {
+      get: "/users/{id}/info"
+    };
+  }
+}
+
+service WishlistService {
+  rpc GetUserWishlist (GetUserWishlistRequest) returns (GetUserWishlistResponse) {
+    option (google.api.http) = {
+      get: "/users/{id}/wishlist"
+    };
+  }
+
+  rpc AddToWishlist (AddToWishlistRequest) returns (AddToWishlistResponse) {
+    option (google.api.http) = {
+      post: "/users/{userId}/wishlist/add"
+      body: "*"
+    };
+  }
+
+  rpc RemoveFromWishlist (RemoveFromWishlistRequest) returns (RemoveFromWishlistResponse) {
+    option (google.api.http) = {
+      post: "/users/{userId}/wishlist/remove"
+      body: "*"
+    };
+  }
+}
+
+service CartService {
+  rpc GetUserCart (GetUserCartRequest) returns (GetUserCartResponse) {
+    option (google.api.http) = {
+      get: "/users/{id}/cart"
+    };
+  }
+
+  rpc AddToCart (AddToCartRequest) returns (AddToCartResponse) {
+    option (google.api.http) = {
+      post: "/users/{userId}/cart/add"
+      body: "*"
+    };
+  }
+
+  rpc RemoveFromCart (RemoveFromCartRequest) returns (RemoveFromCartResponse) {
+    option (google.api.http) = {
+      post: "/users/{userId}/cart/remove"
+      body: "*"
+    };
+  }
+}
+
+service GameService {
+  rpc GetGames (GetGamesRequest) returns (GetGamesResponse) {
+    option (google.api.http) = {
+      get: "/games"
+    };
+  }
+
+  rpc CreateGame (CreateGameRequest) returns (CreateGameResponse) {
+    option (google.api.http) = {
+      post: "/games",
+      body: "*"
+    };
+  }
+}
+
+message AddToCartRequest {
+  uint32 userId = 1;
+  uint32 gameId = 2;
+}
+
+message AddToCartResponse {
+  Cart cart = 1;
+}
+
+message AddToWishlistRequest {
+  uint32 userId = 1;
+  uint32 gameId = 2;
+}
+
+message AddToWishlistResponse {
+  Wishlist wishlist = 1;
+}
+
+message RemoveFromWishlistRequest {
+  uint32 userId = 1;
+  uint32 gameId = 2;
+}
+
+message RemoveFromWishlistResponse {
+  Wishlist wishlist = 1;
+}
+
+message RemoveFromCartRequest {
+  uint32 userId = 1;
+  uint32 gameId = 2;
+}
+
+message RemoveFromCartResponse {
+  Cart cart = 1;
+}
+
+message GetGamesRequest {}
+
+message GetGamesResponse {
+  repeated Game games = 1;
+}
+
+message CreateGameRequest {
+  string name = 1;
+  string description = 2;
+  uint32 price = 3;
+  string creator = 4;
+  string icon = 5;
+}
+
+message CreateGameResponse {
+  Game game = 1;
 }
 
 message GetUsersRequest {}
@@ -37,9 +156,60 @@ message CreateUserResponse {
   User user = 1;
 }
 
+message GetUserInfoRequest {
+  uint32 id = 1;
+}
+
+message GetUserInfoResponse {
+  UserInfo userInfo = 1;
+}
+
+message GetUserWishlistRequest {
+  uint32 id = 1;
+}
+
+message GetUserWishlistResponse {
+  repeated Wishlist wishlist = 1;
+}
+
+message GetUserCartRequest {
+  uint32 id = 1;
+}
+
+message GetUserCartResponse {
+  repeated Cart cart = 1;
+}
+
+message UserInfo {
+  uint32 id = 1;
+  string username = 2;
+  string nickname = 3;
+}
+
 message User {
   uint32 id = 1;
   string username = 2;
   string nickname = 3;
   string password = 4;
+}
+
+message Cart {
+  uint32 id = 1;
+  uint32 userId = 2;
+  uint32 gameId = 3;
+}
+
+message Game {
+  uint32 id = 1;
+  string name = 2;
+  string description = 3;
+  uint32 price = 4;
+  string creator = 5;
+  string icon = 6;
+}
+
+message Wishlist {
+  uint32 id = 1;
+  uint32 userId = 2;
+  uint32 gameId = 3;
 }
