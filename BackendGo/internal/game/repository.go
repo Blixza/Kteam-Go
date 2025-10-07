@@ -2,6 +2,7 @@ package game
 
 import (
 	pb "kteam/api/proto"
+	"log"
 
 	"gorm.io/gorm"
 )
@@ -36,4 +37,12 @@ func (r *Repository) FindByID(id uint32) (*Game, error) {
         return nil, err
     }
     return &game, nil
+}
+
+func (r *Repository) Delete(id uint32) (*Game, error) {
+	game := &Game{ID: id}
+	if err := r.db.Where("id = ?", id).Delete(game).Error; err != nil {
+		return nil, err
+	}
+	return game, nil
 }

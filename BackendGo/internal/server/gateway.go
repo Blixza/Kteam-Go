@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"log"
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -10,6 +11,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 
 	pb "kteam/api/proto"
+	"kteam/internal/game"
 )
 
 func RunGateway(grpcAddr, httpAddr string) error {
@@ -17,31 +19,37 @@ func RunGateway(grpcAddr, httpAddr string) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	mux := runtime.NewServeMux()
+	gwMux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
-	if err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, mux, grpcAddr, opts); err != nil {
+	if err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, gwMux, grpcAddr, opts); err != nil {
 		return err
 	}
 
-	if err := pb.RegisterGameServiceHandlerFromEndpoint(ctx, mux, grpcAddr, opts); err != nil {
+	if err := pb.RegisterGameServiceHandlerFromEndpoint(ctx, gwMux, grpcAddr, opts); err != nil {
 		return err
 	}
 
-	if err := pb.RegisterWishlistServiceHandlerFromEndpoint(ctx, mux, grpcAddr, opts); err != nil {
+	if err := pb.RegisterWishlistServiceHandlerFromEndpoint(ctx, gwMux, grpcAddr, opts); err != nil {
 		return err
 	}
 
-	if err := pb.RegisterCartServiceHandlerFromEndpoint(ctx, mux, grpcAddr, opts); err != nil {
+	if err := pb.RegisterCartServiceHandlerFromEndpoint(ctx, gwMux, grpcAddr, opts); err != nil {
 		return err
 	}
+
+	mainMux := http.NewServeMux()
+	mainMux.Handle("/", gwMux)
+	mainMux.Handle("/upload", http.HandlerFunc(game.UploadHandler))
+	mainMux.Handle("/uploads/", http.StripPrefix("/uploads/", http.FileServer(http.Dir("./uploads"))))
 
 	handler := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:5173"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
 		AllowedHeaders: []string{"*"},
 		AllowCredentials: true,
-	}).Handler(mux)
+	}).Handler(mainMux)
 
+	log.Println("HTTP Gateway started on", httpAddr)
 	return http.ListenAndServe(httpAddr, handler)
 }

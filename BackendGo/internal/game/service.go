@@ -33,7 +33,7 @@ func (s *Service) GetGames(ctx context.Context, req *pb.GetGamesRequest) (*pb.Ge
 			Description: g.Description,
 			Price: g.Price,
 			Creator: g.Creator,
-			Icon: g.Creator,
+			Icon: g.Icon,
 		})
 	}
 	return resp, nil
@@ -46,10 +46,16 @@ func (s *Service) CreateGame(ctx context.Context, req *pb.CreateGameRequest) (*p
 
 	game := &Game{
 		Name: req.Name,
-		Description: req.Description,
 		Creator: req.Creator,
 		Price: req.Price,
-		Icon: req.Icon,
+	}
+
+	if req.Description != nil {
+		game.Description = *req.Description
+	}
+
+	if req.Icon != nil {
+		game.Icon = *req.Icon
 	}
 
 	created, err := s.repo.Create(game)
@@ -58,4 +64,13 @@ func (s *Service) CreateGame(ctx context.Context, req *pb.CreateGameRequest) (*p
 	}
 
 	return &pb.CreateGameResponse{Game: created.ToProto()}, nil
+}
+
+func (s *Service) DeleteGame(ctx context.Context, req *pb.DeleteGameRequest) (*pb.DeleteGameResponse, error) {
+	deleted, err := s.repo.Delete(req.GameId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.DeleteGameResponse{Game: deleted.ToProto()}, nil
 }

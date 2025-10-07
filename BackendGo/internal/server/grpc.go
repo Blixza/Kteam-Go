@@ -25,6 +25,7 @@ func (s *GRPCServer) Start(addr string) {
 	if err := s.Server.Serve(lis); err != nil {
 		log.Fatal("server failed:", err)
 	}
+
 }
 
 func (s *GRPCServer) RegisterUserService(svc pb.UserServiceServer) {

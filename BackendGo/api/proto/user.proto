@@ -84,6 +84,21 @@ service GameService {
       body: "*"
     };
   }
+
+  rpc DeleteGame (DeleteGameRequest) returns (DeleteGameResponse) {
+    option (google.api.http) = {
+      post: "/games/delete",
+      body: "*"
+    };
+  }
+}
+
+message DeleteGameRequest {
+  uint32 gameId = 1;
+}
+
+message DeleteGameResponse {
+  Game game = 1;
 }
 
 message AddToCartRequest {
@@ -130,10 +145,10 @@ message GetGamesResponse {
 
 message CreateGameRequest {
   string name = 1;
-  string description = 2;
-  uint32 price = 3;
+  optional string description = 2;
   string creator = 4;
-  string icon = 5;
+  uint32 price = 3;
+  optional string icon = 5;
 }
 
 message CreateGameResponse {

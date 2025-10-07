@@ -22,6 +22,94 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type DeleteGameRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	GameId        uint32                 `protobuf:"varint,1,opt,name=gameId,proto3" json:"gameId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteGameRequest) Reset() {
+	*x = DeleteGameRequest{}
+	mi := &file_api_proto_user_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteGameRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteGameRequest) ProtoMessage() {}
+
+func (x *DeleteGameRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_proto_user_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteGameRequest.ProtoReflect.Descriptor instead.
+func (*DeleteGameRequest) Descriptor() ([]byte, []int) {
+	return file_api_proto_user_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *DeleteGameRequest) GetGameId() uint32 {
+	if x != nil {
+		return x.GameId
+	}
+	return 0
+}
+
+type DeleteGameResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Game          *Game                  `protobuf:"bytes,1,opt,name=game,proto3" json:"game,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteGameResponse) Reset() {
+	*x = DeleteGameResponse{}
+	mi := &file_api_proto_user_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteGameResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteGameResponse) ProtoMessage() {}
+
+func (x *DeleteGameResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_proto_user_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteGameResponse.ProtoReflect.Descriptor instead.
+func (*DeleteGameResponse) Descriptor() ([]byte, []int) {
+	return file_api_proto_user_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *DeleteGameResponse) GetGame() *Game {
+	if x != nil {
+		return x.Game
+	}
+	return nil
+}
+
 type AddToCartRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        uint32                 `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
@@ -32,7 +120,7 @@ type AddToCartRequest struct {
 
 func (x *AddToCartRequest) Reset() {
 	*x = AddToCartRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[0]
+	mi := &file_api_proto_user_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +132,7 @@ func (x *AddToCartRequest) String() string {
 func (*AddToCartRequest) ProtoMessage() {}
 
 func (x *AddToCartRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[0]
+	mi := &file_api_proto_user_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +145,7 @@ func (x *AddToCartRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddToCartRequest.ProtoReflect.Descriptor instead.
 func (*AddToCartRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{0}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *AddToCartRequest) GetUserId() uint32 {
@@ -83,7 +171,7 @@ type AddToCartResponse struct {
 
 func (x *AddToCartResponse) Reset() {
 	*x = AddToCartResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[1]
+	mi := &file_api_proto_user_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -95,7 +183,7 @@ func (x *AddToCartResponse) String() string {
 func (*AddToCartResponse) ProtoMessage() {}
 
 func (x *AddToCartResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[1]
+	mi := &file_api_proto_user_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -108,7 +196,7 @@ func (x *AddToCartResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddToCartResponse.ProtoReflect.Descriptor instead.
 func (*AddToCartResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{1}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *AddToCartResponse) GetCart() *Cart {
@@ -128,7 +216,7 @@ type AddToWishlistRequest struct {
 
 func (x *AddToWishlistRequest) Reset() {
 	*x = AddToWishlistRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[2]
+	mi := &file_api_proto_user_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -140,7 +228,7 @@ func (x *AddToWishlistRequest) String() string {
 func (*AddToWishlistRequest) ProtoMessage() {}
 
 func (x *AddToWishlistRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[2]
+	mi := &file_api_proto_user_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -153,7 +241,7 @@ func (x *AddToWishlistRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddToWishlistRequest.ProtoReflect.Descriptor instead.
 func (*AddToWishlistRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{2}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *AddToWishlistRequest) GetUserId() uint32 {
@@ -179,7 +267,7 @@ type AddToWishlistResponse struct {
 
 func (x *AddToWishlistResponse) Reset() {
 	*x = AddToWishlistResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[3]
+	mi := &file_api_proto_user_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -191,7 +279,7 @@ func (x *AddToWishlistResponse) String() string {
 func (*AddToWishlistResponse) ProtoMessage() {}
 
 func (x *AddToWishlistResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[3]
+	mi := &file_api_proto_user_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,7 +292,7 @@ func (x *AddToWishlistResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddToWishlistResponse.ProtoReflect.Descriptor instead.
 func (*AddToWishlistResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{3}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *AddToWishlistResponse) GetWishlist() *Wishlist {
@@ -224,7 +312,7 @@ type RemoveFromWishlistRequest struct {
 
 func (x *RemoveFromWishlistRequest) Reset() {
 	*x = RemoveFromWishlistRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[4]
+	mi := &file_api_proto_user_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -236,7 +324,7 @@ func (x *RemoveFromWishlistRequest) String() string {
 func (*RemoveFromWishlistRequest) ProtoMessage() {}
 
 func (x *RemoveFromWishlistRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[4]
+	mi := &file_api_proto_user_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -249,7 +337,7 @@ func (x *RemoveFromWishlistRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveFromWishlistRequest.ProtoReflect.Descriptor instead.
 func (*RemoveFromWishlistRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{4}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *RemoveFromWishlistRequest) GetUserId() uint32 {
@@ -275,7 +363,7 @@ type RemoveFromWishlistResponse struct {
 
 func (x *RemoveFromWishlistResponse) Reset() {
 	*x = RemoveFromWishlistResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[5]
+	mi := &file_api_proto_user_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -287,7 +375,7 @@ func (x *RemoveFromWishlistResponse) String() string {
 func (*RemoveFromWishlistResponse) ProtoMessage() {}
 
 func (x *RemoveFromWishlistResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[5]
+	mi := &file_api_proto_user_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -300,7 +388,7 @@ func (x *RemoveFromWishlistResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveFromWishlistResponse.ProtoReflect.Descriptor instead.
 func (*RemoveFromWishlistResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{5}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *RemoveFromWishlistResponse) GetWishlist() *Wishlist {
@@ -320,7 +408,7 @@ type RemoveFromCartRequest struct {
 
 func (x *RemoveFromCartRequest) Reset() {
 	*x = RemoveFromCartRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[6]
+	mi := &file_api_proto_user_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -332,7 +420,7 @@ func (x *RemoveFromCartRequest) String() string {
 func (*RemoveFromCartRequest) ProtoMessage() {}
 
 func (x *RemoveFromCartRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[6]
+	mi := &file_api_proto_user_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -345,7 +433,7 @@ func (x *RemoveFromCartRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveFromCartRequest.ProtoReflect.Descriptor instead.
 func (*RemoveFromCartRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{6}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *RemoveFromCartRequest) GetUserId() uint32 {
@@ -371,7 +459,7 @@ type RemoveFromCartResponse struct {
 
 func (x *RemoveFromCartResponse) Reset() {
 	*x = RemoveFromCartResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[7]
+	mi := &file_api_proto_user_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -383,7 +471,7 @@ func (x *RemoveFromCartResponse) String() string {
 func (*RemoveFromCartResponse) ProtoMessage() {}
 
 func (x *RemoveFromCartResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[7]
+	mi := &file_api_proto_user_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -396,7 +484,7 @@ func (x *RemoveFromCartResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveFromCartResponse.ProtoReflect.Descriptor instead.
 func (*RemoveFromCartResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{7}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *RemoveFromCartResponse) GetCart() *Cart {
@@ -414,7 +502,7 @@ type GetGamesRequest struct {
 
 func (x *GetGamesRequest) Reset() {
 	*x = GetGamesRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[8]
+	mi := &file_api_proto_user_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -426,7 +514,7 @@ func (x *GetGamesRequest) String() string {
 func (*GetGamesRequest) ProtoMessage() {}
 
 func (x *GetGamesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[8]
+	mi := &file_api_proto_user_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -439,7 +527,7 @@ func (x *GetGamesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetGamesRequest.ProtoReflect.Descriptor instead.
 func (*GetGamesRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{8}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{10}
 }
 
 type GetGamesResponse struct {
@@ -451,7 +539,7 @@ type GetGamesResponse struct {
 
 func (x *GetGamesResponse) Reset() {
 	*x = GetGamesResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[9]
+	mi := &file_api_proto_user_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -463,7 +551,7 @@ func (x *GetGamesResponse) String() string {
 func (*GetGamesResponse) ProtoMessage() {}
 
 func (x *GetGamesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[9]
+	mi := &file_api_proto_user_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -476,7 +564,7 @@ func (x *GetGamesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetGamesResponse.ProtoReflect.Descriptor instead.
 func (*GetGamesResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{9}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GetGamesResponse) GetGames() []*Game {
@@ -489,17 +577,17 @@ func (x *GetGamesResponse) GetGames() []*Game {
 type CreateGameRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	Price         uint32                 `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`
+	Description   *string                `protobuf:"bytes,2,opt,name=description,proto3,oneof" json:"description,omitempty"`
 	Creator       string                 `protobuf:"bytes,4,opt,name=creator,proto3" json:"creator,omitempty"`
-	Icon          string                 `protobuf:"bytes,5,opt,name=icon,proto3" json:"icon,omitempty"`
+	Price         uint32                 `protobuf:"varint,3,opt,name=price,proto3" json:"price,omitempty"`
+	Icon          *string                `protobuf:"bytes,5,opt,name=icon,proto3,oneof" json:"icon,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CreateGameRequest) Reset() {
 	*x = CreateGameRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[10]
+	mi := &file_api_proto_user_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -511,7 +599,7 @@ func (x *CreateGameRequest) String() string {
 func (*CreateGameRequest) ProtoMessage() {}
 
 func (x *CreateGameRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[10]
+	mi := &file_api_proto_user_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -524,7 +612,7 @@ func (x *CreateGameRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateGameRequest.ProtoReflect.Descriptor instead.
 func (*CreateGameRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{10}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *CreateGameRequest) GetName() string {
@@ -535,8 +623,15 @@ func (x *CreateGameRequest) GetName() string {
 }
 
 func (x *CreateGameRequest) GetDescription() string {
+	if x != nil && x.Description != nil {
+		return *x.Description
+	}
+	return ""
+}
+
+func (x *CreateGameRequest) GetCreator() string {
 	if x != nil {
-		return x.Description
+		return x.Creator
 	}
 	return ""
 }
@@ -548,16 +643,9 @@ func (x *CreateGameRequest) GetPrice() uint32 {
 	return 0
 }
 
-func (x *CreateGameRequest) GetCreator() string {
-	if x != nil {
-		return x.Creator
-	}
-	return ""
-}
-
 func (x *CreateGameRequest) GetIcon() string {
-	if x != nil {
-		return x.Icon
+	if x != nil && x.Icon != nil {
+		return *x.Icon
 	}
 	return ""
 }
@@ -571,7 +659,7 @@ type CreateGameResponse struct {
 
 func (x *CreateGameResponse) Reset() {
 	*x = CreateGameResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[11]
+	mi := &file_api_proto_user_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -583,7 +671,7 @@ func (x *CreateGameResponse) String() string {
 func (*CreateGameResponse) ProtoMessage() {}
 
 func (x *CreateGameResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[11]
+	mi := &file_api_proto_user_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -596,7 +684,7 @@ func (x *CreateGameResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateGameResponse.ProtoReflect.Descriptor instead.
 func (*CreateGameResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{11}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *CreateGameResponse) GetGame() *Game {
@@ -614,7 +702,7 @@ type GetUsersRequest struct {
 
 func (x *GetUsersRequest) Reset() {
 	*x = GetUsersRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[12]
+	mi := &file_api_proto_user_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -626,7 +714,7 @@ func (x *GetUsersRequest) String() string {
 func (*GetUsersRequest) ProtoMessage() {}
 
 func (x *GetUsersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[12]
+	mi := &file_api_proto_user_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -639,7 +727,7 @@ func (x *GetUsersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUsersRequest.ProtoReflect.Descriptor instead.
 func (*GetUsersRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{12}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{14}
 }
 
 type GetUsersResponse struct {
@@ -651,7 +739,7 @@ type GetUsersResponse struct {
 
 func (x *GetUsersResponse) Reset() {
 	*x = GetUsersResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[13]
+	mi := &file_api_proto_user_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -663,7 +751,7 @@ func (x *GetUsersResponse) String() string {
 func (*GetUsersResponse) ProtoMessage() {}
 
 func (x *GetUsersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[13]
+	mi := &file_api_proto_user_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -676,7 +764,7 @@ func (x *GetUsersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUsersResponse.ProtoReflect.Descriptor instead.
 func (*GetUsersResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{13}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetUsersResponse) GetUsers() []*User {
@@ -697,7 +785,7 @@ type CreateUserRequest struct {
 
 func (x *CreateUserRequest) Reset() {
 	*x = CreateUserRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[14]
+	mi := &file_api_proto_user_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -709,7 +797,7 @@ func (x *CreateUserRequest) String() string {
 func (*CreateUserRequest) ProtoMessage() {}
 
 func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[14]
+	mi := &file_api_proto_user_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -722,7 +810,7 @@ func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{14}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *CreateUserRequest) GetUsername() string {
@@ -755,7 +843,7 @@ type CreateUserResponse struct {
 
 func (x *CreateUserResponse) Reset() {
 	*x = CreateUserResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[15]
+	mi := &file_api_proto_user_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -767,7 +855,7 @@ func (x *CreateUserResponse) String() string {
 func (*CreateUserResponse) ProtoMessage() {}
 
 func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[15]
+	mi := &file_api_proto_user_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -780,7 +868,7 @@ func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserResponse.ProtoReflect.Descriptor instead.
 func (*CreateUserResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{15}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *CreateUserResponse) GetUser() *User {
@@ -799,7 +887,7 @@ type GetUserInfoRequest struct {
 
 func (x *GetUserInfoRequest) Reset() {
 	*x = GetUserInfoRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[16]
+	mi := &file_api_proto_user_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -811,7 +899,7 @@ func (x *GetUserInfoRequest) String() string {
 func (*GetUserInfoRequest) ProtoMessage() {}
 
 func (x *GetUserInfoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[16]
+	mi := &file_api_proto_user_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -824,7 +912,7 @@ func (x *GetUserInfoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserInfoRequest.ProtoReflect.Descriptor instead.
 func (*GetUserInfoRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{16}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GetUserInfoRequest) GetId() uint32 {
@@ -843,7 +931,7 @@ type GetUserInfoResponse struct {
 
 func (x *GetUserInfoResponse) Reset() {
 	*x = GetUserInfoResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[17]
+	mi := &file_api_proto_user_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -855,7 +943,7 @@ func (x *GetUserInfoResponse) String() string {
 func (*GetUserInfoResponse) ProtoMessage() {}
 
 func (x *GetUserInfoResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[17]
+	mi := &file_api_proto_user_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -868,7 +956,7 @@ func (x *GetUserInfoResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserInfoResponse.ProtoReflect.Descriptor instead.
 func (*GetUserInfoResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{17}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetUserInfoResponse) GetUserInfo() *UserInfo {
@@ -887,7 +975,7 @@ type GetUserWishlistRequest struct {
 
 func (x *GetUserWishlistRequest) Reset() {
 	*x = GetUserWishlistRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[18]
+	mi := &file_api_proto_user_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -899,7 +987,7 @@ func (x *GetUserWishlistRequest) String() string {
 func (*GetUserWishlistRequest) ProtoMessage() {}
 
 func (x *GetUserWishlistRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[18]
+	mi := &file_api_proto_user_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -912,7 +1000,7 @@ func (x *GetUserWishlistRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserWishlistRequest.ProtoReflect.Descriptor instead.
 func (*GetUserWishlistRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{18}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetUserWishlistRequest) GetId() uint32 {
@@ -931,7 +1019,7 @@ type GetUserWishlistResponse struct {
 
 func (x *GetUserWishlistResponse) Reset() {
 	*x = GetUserWishlistResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[19]
+	mi := &file_api_proto_user_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -943,7 +1031,7 @@ func (x *GetUserWishlistResponse) String() string {
 func (*GetUserWishlistResponse) ProtoMessage() {}
 
 func (x *GetUserWishlistResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[19]
+	mi := &file_api_proto_user_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -956,7 +1044,7 @@ func (x *GetUserWishlistResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserWishlistResponse.ProtoReflect.Descriptor instead.
 func (*GetUserWishlistResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{19}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *GetUserWishlistResponse) GetWishlist() []*Wishlist {
@@ -975,7 +1063,7 @@ type GetUserCartRequest struct {
 
 func (x *GetUserCartRequest) Reset() {
 	*x = GetUserCartRequest{}
-	mi := &file_api_proto_user_proto_msgTypes[20]
+	mi := &file_api_proto_user_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -987,7 +1075,7 @@ func (x *GetUserCartRequest) String() string {
 func (*GetUserCartRequest) ProtoMessage() {}
 
 func (x *GetUserCartRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[20]
+	mi := &file_api_proto_user_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1000,7 +1088,7 @@ func (x *GetUserCartRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserCartRequest.ProtoReflect.Descriptor instead.
 func (*GetUserCartRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{20}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *GetUserCartRequest) GetId() uint32 {
@@ -1019,7 +1107,7 @@ type GetUserCartResponse struct {
 
 func (x *GetUserCartResponse) Reset() {
 	*x = GetUserCartResponse{}
-	mi := &file_api_proto_user_proto_msgTypes[21]
+	mi := &file_api_proto_user_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1031,7 +1119,7 @@ func (x *GetUserCartResponse) String() string {
 func (*GetUserCartResponse) ProtoMessage() {}
 
 func (x *GetUserCartResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[21]
+	mi := &file_api_proto_user_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1044,7 +1132,7 @@ func (x *GetUserCartResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserCartResponse.ProtoReflect.Descriptor instead.
 func (*GetUserCartResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{21}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *GetUserCartResponse) GetCart() []*Cart {
@@ -1065,7 +1153,7 @@ type UserInfo struct {
 
 func (x *UserInfo) Reset() {
 	*x = UserInfo{}
-	mi := &file_api_proto_user_proto_msgTypes[22]
+	mi := &file_api_proto_user_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1077,7 +1165,7 @@ func (x *UserInfo) String() string {
 func (*UserInfo) ProtoMessage() {}
 
 func (x *UserInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[22]
+	mi := &file_api_proto_user_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1090,7 +1178,7 @@ func (x *UserInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserInfo.ProtoReflect.Descriptor instead.
 func (*UserInfo) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{22}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *UserInfo) GetId() uint32 {
@@ -1126,7 +1214,7 @@ type User struct {
 
 func (x *User) Reset() {
 	*x = User{}
-	mi := &file_api_proto_user_proto_msgTypes[23]
+	mi := &file_api_proto_user_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1138,7 +1226,7 @@ func (x *User) String() string {
 func (*User) ProtoMessage() {}
 
 func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[23]
+	mi := &file_api_proto_user_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1151,7 +1239,7 @@ func (x *User) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use User.ProtoReflect.Descriptor instead.
 func (*User) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{23}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *User) GetId() uint32 {
@@ -1193,7 +1281,7 @@ type Cart struct {
 
 func (x *Cart) Reset() {
 	*x = Cart{}
-	mi := &file_api_proto_user_proto_msgTypes[24]
+	mi := &file_api_proto_user_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1205,7 +1293,7 @@ func (x *Cart) String() string {
 func (*Cart) ProtoMessage() {}
 
 func (x *Cart) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[24]
+	mi := &file_api_proto_user_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1218,7 +1306,7 @@ func (x *Cart) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Cart.ProtoReflect.Descriptor instead.
 func (*Cart) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{24}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *Cart) GetId() uint32 {
@@ -1256,7 +1344,7 @@ type Game struct {
 
 func (x *Game) Reset() {
 	*x = Game{}
-	mi := &file_api_proto_user_proto_msgTypes[25]
+	mi := &file_api_proto_user_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1268,7 +1356,7 @@ func (x *Game) String() string {
 func (*Game) ProtoMessage() {}
 
 func (x *Game) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[25]
+	mi := &file_api_proto_user_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1281,7 +1369,7 @@ func (x *Game) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Game.ProtoReflect.Descriptor instead.
 func (*Game) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{25}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *Game) GetId() uint32 {
@@ -1337,7 +1425,7 @@ type Wishlist struct {
 
 func (x *Wishlist) Reset() {
 	*x = Wishlist{}
-	mi := &file_api_proto_user_proto_msgTypes[26]
+	mi := &file_api_proto_user_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1349,7 +1437,7 @@ func (x *Wishlist) String() string {
 func (*Wishlist) ProtoMessage() {}
 
 func (x *Wishlist) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_user_proto_msgTypes[26]
+	mi := &file_api_proto_user_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1362,7 +1450,7 @@ func (x *Wishlist) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Wishlist.ProtoReflect.Descriptor instead.
 func (*Wishlist) Descriptor() ([]byte, []int) {
-	return file_api_proto_user_proto_rawDescGZIP(), []int{26}
+	return file_api_proto_user_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *Wishlist) GetId() uint32 {
@@ -1390,7 +1478,12 @@ var File_api_proto_user_proto protoreflect.FileDescriptor
 
 const file_api_proto_user_proto_rawDesc = "" +
 	"\n" +
-	"\x14api/proto/user.proto\x12\x04user\x1a+api/googleapis/google/api/annotations.proto\"B\n" +
+	"\x14api/proto/user.proto\x12\x04user\x1a+api/googleapis/google/api/annotations.proto\"+\n" +
+	"\x11DeleteGameRequest\x12\x16\n" +
+	"\x06gameId\x18\x01 \x01(\rR\x06gameId\"4\n" +
+	"\x12DeleteGameResponse\x12\x1e\n" +
+	"\x04game\x18\x01 \x01(\v2\n" +
+	".user.GameR\x04game\"B\n" +
 	"\x10AddToCartRequest\x12\x16\n" +
 	"\x06userId\x18\x01 \x01(\rR\x06userId\x12\x16\n" +
 	"\x06gameId\x18\x02 \x01(\rR\x06gameId\"3\n" +
@@ -1416,13 +1509,15 @@ const file_api_proto_user_proto_rawDesc = "" +
 	"\x0fGetGamesRequest\"4\n" +
 	"\x10GetGamesResponse\x12 \n" +
 	"\x05games\x18\x01 \x03(\v2\n" +
-	".user.GameR\x05games\"\x8d\x01\n" +
+	".user.GameR\x05games\"\xb0\x01\n" +
 	"\x11CreateGameRequest\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x14\n" +
-	"\x05price\x18\x03 \x01(\rR\x05price\x12\x18\n" +
-	"\acreator\x18\x04 \x01(\tR\acreator\x12\x12\n" +
-	"\x04icon\x18\x05 \x01(\tR\x04icon\"4\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12%\n" +
+	"\vdescription\x18\x02 \x01(\tH\x00R\vdescription\x88\x01\x01\x12\x18\n" +
+	"\acreator\x18\x04 \x01(\tR\acreator\x12\x14\n" +
+	"\x05price\x18\x03 \x01(\rR\x05price\x12\x17\n" +
+	"\x04icon\x18\x05 \x01(\tH\x01R\x04icon\x88\x01\x01B\x0e\n" +
+	"\f_descriptionB\a\n" +
+	"\x05_icon\"4\n" +
 	"\x12CreateGameResponse\x12\x1e\n" +
 	"\x04game\x18\x01 \x01(\v2\n" +
 	".user.GameR\x04game\"\x11\n" +
@@ -1486,11 +1581,13 @@ const file_api_proto_user_proto_rawDesc = "" +
 	"\vCartService\x12\\\n" +
 	"\vGetUserCart\x12\x18.user.GetUserCartRequest\x1a\x19.user.GetUserCartResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/users/{id}/cart\x12a\n" +
 	"\tAddToCart\x12\x16.user.AddToCartRequest\x1a\x17.user.AddToCartResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/users/{userId}/cart/add\x12s\n" +
-	"\x0eRemoveFromCart\x12\x1b.user.RemoveFromCartRequest\x1a\x1c.user.RemoveFromCartResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/users/{userId}/cart/remove2\xac\x01\n" +
+	"\x0eRemoveFromCart\x12\x1b.user.RemoveFromCartRequest\x1a\x1c.user.RemoveFromCartResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/users/{userId}/cart/remove2\x87\x02\n" +
 	"\vGameService\x12I\n" +
 	"\bGetGames\x12\x15.user.GetGamesRequest\x1a\x16.user.GetGamesResponse\"\x0e\x82\xd3\xe4\x93\x02\b\x12\x06/games\x12R\n" +
 	"\n" +
-	"CreateGame\x12\x17.user.CreateGameRequest\x1a\x18.user.CreateGameResponse\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\"\x06/gamesB\x10Z\x0eapi/proto;userb\x06proto3"
+	"CreateGame\x12\x17.user.CreateGameRequest\x1a\x18.user.CreateGameResponse\"\x11\x82\xd3\xe4\x93\x02\v:\x01*\"\x06/games\x12Y\n" +
+	"\n" +
+	"DeleteGame\x12\x17.user.DeleteGameRequest\x1a\x18.user.DeleteGameResponse\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/games/deleteB\x10Z\x0eapi/proto;userb\x06proto3"
 
 var (
 	file_api_proto_user_proto_rawDescOnce sync.Once
@@ -1504,75 +1601,80 @@ func file_api_proto_user_proto_rawDescGZIP() []byte {
 	return file_api_proto_user_proto_rawDescData
 }
 
-var file_api_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 27)
+var file_api_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 29)
 var file_api_proto_user_proto_goTypes = []any{
-	(*AddToCartRequest)(nil),           // 0: user.AddToCartRequest
-	(*AddToCartResponse)(nil),          // 1: user.AddToCartResponse
-	(*AddToWishlistRequest)(nil),       // 2: user.AddToWishlistRequest
-	(*AddToWishlistResponse)(nil),      // 3: user.AddToWishlistResponse
-	(*RemoveFromWishlistRequest)(nil),  // 4: user.RemoveFromWishlistRequest
-	(*RemoveFromWishlistResponse)(nil), // 5: user.RemoveFromWishlistResponse
-	(*RemoveFromCartRequest)(nil),      // 6: user.RemoveFromCartRequest
-	(*RemoveFromCartResponse)(nil),     // 7: user.RemoveFromCartResponse
-	(*GetGamesRequest)(nil),            // 8: user.GetGamesRequest
-	(*GetGamesResponse)(nil),           // 9: user.GetGamesResponse
-	(*CreateGameRequest)(nil),          // 10: user.CreateGameRequest
-	(*CreateGameResponse)(nil),         // 11: user.CreateGameResponse
-	(*GetUsersRequest)(nil),            // 12: user.GetUsersRequest
-	(*GetUsersResponse)(nil),           // 13: user.GetUsersResponse
-	(*CreateUserRequest)(nil),          // 14: user.CreateUserRequest
-	(*CreateUserResponse)(nil),         // 15: user.CreateUserResponse
-	(*GetUserInfoRequest)(nil),         // 16: user.GetUserInfoRequest
-	(*GetUserInfoResponse)(nil),        // 17: user.GetUserInfoResponse
-	(*GetUserWishlistRequest)(nil),     // 18: user.GetUserWishlistRequest
-	(*GetUserWishlistResponse)(nil),    // 19: user.GetUserWishlistResponse
-	(*GetUserCartRequest)(nil),         // 20: user.GetUserCartRequest
-	(*GetUserCartResponse)(nil),        // 21: user.GetUserCartResponse
-	(*UserInfo)(nil),                   // 22: user.UserInfo
-	(*User)(nil),                       // 23: user.User
-	(*Cart)(nil),                       // 24: user.Cart
-	(*Game)(nil),                       // 25: user.Game
-	(*Wishlist)(nil),                   // 26: user.Wishlist
+	(*DeleteGameRequest)(nil),          // 0: user.DeleteGameRequest
+	(*DeleteGameResponse)(nil),         // 1: user.DeleteGameResponse
+	(*AddToCartRequest)(nil),           // 2: user.AddToCartRequest
+	(*AddToCartResponse)(nil),          // 3: user.AddToCartResponse
+	(*AddToWishlistRequest)(nil),       // 4: user.AddToWishlistRequest
+	(*AddToWishlistResponse)(nil),      // 5: user.AddToWishlistResponse
+	(*RemoveFromWishlistRequest)(nil),  // 6: user.RemoveFromWishlistRequest
+	(*RemoveFromWishlistResponse)(nil), // 7: user.RemoveFromWishlistResponse
+	(*RemoveFromCartRequest)(nil),      // 8: user.RemoveFromCartRequest
+	(*RemoveFromCartResponse)(nil),     // 9: user.RemoveFromCartResponse
+	(*GetGamesRequest)(nil),            // 10: user.GetGamesRequest
+	(*GetGamesResponse)(nil),           // 11: user.GetGamesResponse
+	(*CreateGameRequest)(nil),          // 12: user.CreateGameRequest
+	(*CreateGameResponse)(nil),         // 13: user.CreateGameResponse
+	(*GetUsersRequest)(nil),            // 14: user.GetUsersRequest
+	(*GetUsersResponse)(nil),           // 15: user.GetUsersResponse
+	(*CreateUserRequest)(nil),          // 16: user.CreateUserRequest
+	(*CreateUserResponse)(nil),         // 17: user.CreateUserResponse
+	(*GetUserInfoRequest)(nil),         // 18: user.GetUserInfoRequest
+	(*GetUserInfoResponse)(nil),        // 19: user.GetUserInfoResponse
+	(*GetUserWishlistRequest)(nil),     // 20: user.GetUserWishlistRequest
+	(*GetUserWishlistResponse)(nil),    // 21: user.GetUserWishlistResponse
+	(*GetUserCartRequest)(nil),         // 22: user.GetUserCartRequest
+	(*GetUserCartResponse)(nil),        // 23: user.GetUserCartResponse
+	(*UserInfo)(nil),                   // 24: user.UserInfo
+	(*User)(nil),                       // 25: user.User
+	(*Cart)(nil),                       // 26: user.Cart
+	(*Game)(nil),                       // 27: user.Game
+	(*Wishlist)(nil),                   // 28: user.Wishlist
 }
 var file_api_proto_user_proto_depIdxs = []int32{
-	24, // 0: user.AddToCartResponse.cart:type_name -> user.Cart
-	26, // 1: user.AddToWishlistResponse.wishlist:type_name -> user.Wishlist
-	26, // 2: user.RemoveFromWishlistResponse.wishlist:type_name -> user.Wishlist
-	24, // 3: user.RemoveFromCartResponse.cart:type_name -> user.Cart
-	25, // 4: user.GetGamesResponse.games:type_name -> user.Game
-	25, // 5: user.CreateGameResponse.game:type_name -> user.Game
-	23, // 6: user.GetUsersResponse.users:type_name -> user.User
-	23, // 7: user.CreateUserResponse.user:type_name -> user.User
-	22, // 8: user.GetUserInfoResponse.userInfo:type_name -> user.UserInfo
-	26, // 9: user.GetUserWishlistResponse.wishlist:type_name -> user.Wishlist
-	24, // 10: user.GetUserCartResponse.cart:type_name -> user.Cart
-	12, // 11: user.UserService.GetUsers:input_type -> user.GetUsersRequest
-	14, // 12: user.UserService.CreateUser:input_type -> user.CreateUserRequest
-	16, // 13: user.UserService.GetUserInfo:input_type -> user.GetUserInfoRequest
-	18, // 14: user.WishlistService.GetUserWishlist:input_type -> user.GetUserWishlistRequest
-	2,  // 15: user.WishlistService.AddToWishlist:input_type -> user.AddToWishlistRequest
-	4,  // 16: user.WishlistService.RemoveFromWishlist:input_type -> user.RemoveFromWishlistRequest
-	20, // 17: user.CartService.GetUserCart:input_type -> user.GetUserCartRequest
-	0,  // 18: user.CartService.AddToCart:input_type -> user.AddToCartRequest
-	6,  // 19: user.CartService.RemoveFromCart:input_type -> user.RemoveFromCartRequest
-	8,  // 20: user.GameService.GetGames:input_type -> user.GetGamesRequest
-	10, // 21: user.GameService.CreateGame:input_type -> user.CreateGameRequest
-	13, // 22: user.UserService.GetUsers:output_type -> user.GetUsersResponse
-	15, // 23: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	17, // 24: user.UserService.GetUserInfo:output_type -> user.GetUserInfoResponse
-	19, // 25: user.WishlistService.GetUserWishlist:output_type -> user.GetUserWishlistResponse
-	3,  // 26: user.WishlistService.AddToWishlist:output_type -> user.AddToWishlistResponse
-	5,  // 27: user.WishlistService.RemoveFromWishlist:output_type -> user.RemoveFromWishlistResponse
-	21, // 28: user.CartService.GetUserCart:output_type -> user.GetUserCartResponse
-	1,  // 29: user.CartService.AddToCart:output_type -> user.AddToCartResponse
-	7,  // 30: user.CartService.RemoveFromCart:output_type -> user.RemoveFromCartResponse
-	9,  // 31: user.GameService.GetGames:output_type -> user.GetGamesResponse
-	11, // 32: user.GameService.CreateGame:output_type -> user.CreateGameResponse
-	22, // [22:33] is the sub-list for method output_type
-	11, // [11:22] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	27, // 0: user.DeleteGameResponse.game:type_name -> user.Game
+	26, // 1: user.AddToCartResponse.cart:type_name -> user.Cart
+	28, // 2: user.AddToWishlistResponse.wishlist:type_name -> user.Wishlist
+	28, // 3: user.RemoveFromWishlistResponse.wishlist:type_name -> user.Wishlist
+	26, // 4: user.RemoveFromCartResponse.cart:type_name -> user.Cart
+	27, // 5: user.GetGamesResponse.games:type_name -> user.Game
+	27, // 6: user.CreateGameResponse.game:type_name -> user.Game
+	25, // 7: user.GetUsersResponse.users:type_name -> user.User
+	25, // 8: user.CreateUserResponse.user:type_name -> user.User
+	24, // 9: user.GetUserInfoResponse.userInfo:type_name -> user.UserInfo
+	28, // 10: user.GetUserWishlistResponse.wishlist:type_name -> user.Wishlist
+	26, // 11: user.GetUserCartResponse.cart:type_name -> user.Cart
+	14, // 12: user.UserService.GetUsers:input_type -> user.GetUsersRequest
+	16, // 13: user.UserService.CreateUser:input_type -> user.CreateUserRequest
+	18, // 14: user.UserService.GetUserInfo:input_type -> user.GetUserInfoRequest
+	20, // 15: user.WishlistService.GetUserWishlist:input_type -> user.GetUserWishlistRequest
+	4,  // 16: user.WishlistService.AddToWishlist:input_type -> user.AddToWishlistRequest
+	6,  // 17: user.WishlistService.RemoveFromWishlist:input_type -> user.RemoveFromWishlistRequest
+	22, // 18: user.CartService.GetUserCart:input_type -> user.GetUserCartRequest
+	2,  // 19: user.CartService.AddToCart:input_type -> user.AddToCartRequest
+	8,  // 20: user.CartService.RemoveFromCart:input_type -> user.RemoveFromCartRequest
+	10, // 21: user.GameService.GetGames:input_type -> user.GetGamesRequest
+	12, // 22: user.GameService.CreateGame:input_type -> user.CreateGameRequest
+	0,  // 23: user.GameService.DeleteGame:input_type -> user.DeleteGameRequest
+	15, // 24: user.UserService.GetUsers:output_type -> user.GetUsersResponse
+	17, // 25: user.UserService.CreateUser:output_type -> user.CreateUserResponse
+	19, // 26: user.UserService.GetUserInfo:output_type -> user.GetUserInfoResponse
+	21, // 27: user.WishlistService.GetUserWishlist:output_type -> user.GetUserWishlistResponse
+	5,  // 28: user.WishlistService.AddToWishlist:output_type -> user.AddToWishlistResponse
+	7,  // 29: user.WishlistService.RemoveFromWishlist:output_type -> user.RemoveFromWishlistResponse
+	23, // 30: user.CartService.GetUserCart:output_type -> user.GetUserCartResponse
+	3,  // 31: user.CartService.AddToCart:output_type -> user.AddToCartResponse
+	9,  // 32: user.CartService.RemoveFromCart:output_type -> user.RemoveFromCartResponse
+	11, // 33: user.GameService.GetGames:output_type -> user.GetGamesResponse
+	13, // 34: user.GameService.CreateGame:output_type -> user.CreateGameResponse
+	1,  // 35: user.GameService.DeleteGame:output_type -> user.DeleteGameResponse
+	24, // [24:36] is the sub-list for method output_type
+	12, // [12:24] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_api_proto_user_proto_init() }
@@ -1580,13 +1682,14 @@ func file_api_proto_user_proto_init() {
 	if File_api_proto_user_proto != nil {
 		return
 	}
+	file_api_proto_user_proto_msgTypes[12].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_proto_user_proto_rawDesc), len(file_api_proto_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   27,
+			NumMessages:   29,
 			NumExtensions: 0,
 			NumServices:   4,
 		},
