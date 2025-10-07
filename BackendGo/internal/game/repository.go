@@ -2,7 +2,6 @@ package game
 
 import (
 	pb "kteam/api/proto"
-	"log"
 
 	"gorm.io/gorm"
 )

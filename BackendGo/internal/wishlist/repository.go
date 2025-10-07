@@ -10,13 +10,18 @@ func NewRepository(db *gorm.DB) *Repository {
 	return &Repository{db: db}
 }
 
-func (r *Repository) FindByUserId(id uint32) ([]Wishlist, error) {
+func (r *Repository) FindByUserId(id uint32) ([]uint32, error) {
 	var wishlist []Wishlist
 	if err := r.db.Where("user_id = ?", id).Find(&wishlist).Error; err != nil {
 		return nil, err
 	}
 
-	return wishlist, nil
+	var pbWishlist []uint32
+	for _, v := range wishlist {
+		pbWishlist = append(pbWishlist, v.GameID)
+	}
+
+	return pbWishlist, nil
 }
 
 func (r *Repository) Create(userId, gameId uint32) (*Wishlist, error) {

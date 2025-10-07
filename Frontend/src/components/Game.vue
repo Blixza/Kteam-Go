@@ -7,7 +7,7 @@ const emit = defineEmits(['back']);
   <div class="game-page">
     <img
       class="game-icon"
-      :src="`src/assets/${props.game.icon}`"
+      :src="'http://localhost:8080' + '/uploads/' + game.icon"
       :alt="props.game.name"
     />
     <div class="game-name">{{ props.game.name }}</div>

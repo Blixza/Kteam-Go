@@ -10,20 +10,19 @@ interface Game {
   name: string;
   price: number;
   creator: string;
+  icon?: string;
   isInCart?: boolean;
   isWishlisted?: boolean;
 }
 
 const games = ref<Game[]>([]);
 const wishlist = ref<number[]>([]);
-const isWishlisted = ref<boolean>();
 
 const emit = defineEmits(['close']);
 
 async function removeFromCart(game: Game) {
   try {
     await axios.post(url.value + `/users/${1}/cart/remove`, {
-      userId: 1,
       gameId: game.id,
     });
     cart.value = cart.value.filter((c) => c.gameId !== game.id);
@@ -36,20 +35,18 @@ async function removeFromCart(game: Game) {
   }
 }
 
-async function addOrRemoveFromWishlsit(game: Game) {
+async function addOrRemoveFromWishlist(game: Game) {
   try {
     const isInWishlist = wishlist.value.includes(game.id);
 
     if (!isInWishlist) {
       await axios.post(url.value + `/users/${1}/wishlist/add`, {
-        userId: 1,
         gameId: game.id,
       });
       wishlist.value.push(game.id);
       game.isWishlisted = true;
     } else {
       await axios.post(url.value + `/users/${1}/wishlist/remove`, {
-        userId: 1,
         gameId: game.id,
       });
       wishlist.value = wishlist.value.filter((id) => id !== game.id);
@@ -60,7 +57,6 @@ async function addOrRemoveFromWishlsit(game: Game) {
       console.log(err.message);
     }
   }
-  console.log(isWishlisted.value);
 }
 
 async function initCart() {
@@ -78,7 +74,7 @@ async function initCart() {
 async function initWishlisted() {
   try {
     const res = await axios.get(url.value + `/users/${1}/wishlist`);
-    wishlist.value = res.data.wishlist;
+    wishlist.value = res.data.gameId ?? [];
     games.value.forEach((game) => {
       game.isWishlisted = wishlist.value.includes(game.id);
     });
@@ -102,6 +98,7 @@ onMounted(async () => {
   await getGames();
   initWishlisted();
   initCart();
+  console.log('CART WISHLIST: ', wishlist.value);
 });
 </script>
 
@@ -116,14 +113,14 @@ onMounted(async () => {
       >
         <img
           class="banner"
-          :src="'/images/' + game.name.split(' ').join('_') + '.jpg'"
+          :src="url + '/uploads/' + game.icon"
           :alt="game.name"
         />
         <h2>{{ game.name }}</h2>
         <p>Price: ${{ game.price }}</p>
         <p>By: {{ game.creator }}</p>
         <button @click="removeFromCart(game)">Remove from cart</button>
-        <button @click="addOrRemoveFromWishlsit(game)">
+        <button @click="addOrRemoveFromWishlist(game)">
           {{ game.isWishlisted ? 'Wishlisted' : 'Wishlist' }}
         </button>
       </div>

@@ -22,16 +22,7 @@ func (s *Service) GetUserWishlist(ctx context.Context, req *pb.GetUserWishlistRe
 		return nil, err
 	}
 
-	var pbWishlist []*pb.Wishlist
-	for _, w := range wishlist {
-		pbWishlist = append(pbWishlist, &pb.Wishlist{
-			Id: w.ID,
-			UserId: w.UserID,
-			GameId: w.GameID,
-		})
-	}
-
-	return &pb.GetUserWishlistResponse{Wishlist: pbWishlist}, nil
+	return &pb.GetUserWishlistResponse{GameId: wishlist}, nil
 }
 
 func (s *Service) AddToWishlist(ctx context.Context, req *pb.AddToWishlistRequest) (*pb.AddToWishlistResponse, error) {

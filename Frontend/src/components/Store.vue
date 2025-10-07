@@ -7,7 +7,7 @@ import Fuse from 'fuse.js';
 
 const url = ref('http://localhost:8080');
 
-export interface Game {
+interface Game {
   id: number;
   name: string;
   price: number;
@@ -18,7 +18,7 @@ export interface Game {
 }
 
 const games = ref<Game[]>([]);
-// const filteredGames = ref([...games.value]);
+const filteredGames = ref([...games.value]);
 const wishlist = ref<number[]>([]);
 const isWishlisted = ref<boolean>();
 const searchInput = ref<string>();
@@ -28,8 +28,6 @@ const searchInput = ref<string>();
  */
 async function addOrRemoveFromCart(game: Game) {
   try {
-    console.log(game.id);
-    console.log(games.value);
     const isInCart = cart.value.some((c) => c.gameId === game.id);
 
     if (!isInCart) {
@@ -82,7 +80,8 @@ async function initCart() {
 async function initWishlisted() {
   try {
     const res = await axios.get(url.value + `/users/${1}/wishlist`);
-    wishlist.value = res.data.wishlist;
+    wishlist.value = res.data.gameId ?? [];
+    console.log('w', wishlist.value);
     games.value.forEach((game) => {
       game.isWishlisted = wishlist.value.includes(game.id);
     });
@@ -91,20 +90,20 @@ async function initWishlisted() {
   }
 }
 
-async function addOrRemoveFromWishlsit(game: Game) {
+async function addOrRemoveFromWishlist(game: Game) {
   try {
-    let body = {
-      gameId: game.id,
-    };
-
-    const isInWishlist = wishlist.value.includes(body.gameId);
+    const isInWishlist = wishlist.value.includes(game.id);
 
     if (!isInWishlist) {
-      await axios.post(url.value + `/users/${1}/wishlist/add`, body);
+      await axios.post(url.value + `/users/${1}/wishlist/add`, {
+        gameId: game.id,
+      });
       wishlist.value.push(game.id);
       game.isWishlisted = true;
     } else {
-      await axios.post(url.value + `/users/${1}/wishlist/remove`, body);
+      await axios.post(url.value + `/users/${1}/wishlist/remove`, {
+        gameId: game.id,
+      });
       wishlist.value = wishlist.value.filter((id) => id !== game.id);
       game.isWishlisted = false;
     }
@@ -118,8 +117,8 @@ async function addOrRemoveFromWishlsit(game: Game) {
 
 async function deleteGame(game: Game) {
   try {
-    const res = await axios.delete(url.value + '/games/delete', {
-      params: { gameId: game.id, userId: 1 },
+    await axios.post(url.value + '/games/delete', {
+      gameId: game.id,
     });
     games.value = games.value.filter((g) => g.id !== game.id);
   } catch (err) {
@@ -144,6 +143,7 @@ onMounted(async () => {
   await getGames();
   initWishlisted();
   initCart();
+  console.log('STORE WISHLIST: ', wishlist.value);
 });
 </script>
 
@@ -155,7 +155,11 @@ onMounted(async () => {
     </div>
     <div class="game-list">
       <div class="game-card" v-for="game in sortedGames" :key="game.id">
-        <img class="banner" :src="`src/assets/${game.icon}`" :alt="game.name" />
+        <img
+          class="banner"
+          :src="url + '/uploads/' + game.icon"
+          :alt="game.name"
+        />
         <h2>{{ game.name }}</h2>
         <p>Price: ${{ game.price }}</p>
         <p>By: {{ game.creator }}</p>
@@ -163,7 +167,7 @@ onMounted(async () => {
         <button @click="addOrRemoveFromCart(game)">
           {{ game.isInCart ? 'In Cart' : 'Add to cart' }}
         </button>
-        <button @click="addOrRemoveFromWishlsit(game)">
+        <button @click="addOrRemoveFromWishlist(game)">
           {{ game.isWishlisted ? 'Wishlisted' : 'Wishlist' }}
         </button>
         <button class="delete-button" @click="deleteGame(game)">

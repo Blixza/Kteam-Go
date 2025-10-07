@@ -3,7 +3,8 @@ import { onMounted, ref } from 'vue';
 import axios from 'axios';
 
 const url = ref('http://localhost:8080');
-const username = ref('');
+const previewUrl = ref('');
+const formData = ref();
 const body = ref({
   name: '',
   price: 0,
@@ -13,37 +14,31 @@ const body = ref({
 const error = ref('');
 const status = ref<number>();
 
-onMounted(() => {
-  getUsername();
-});
+// onMounted(() => {
+//   getUsername();
+// });
 
-async function getUsername() {
-  try {
-    const res = await axios.get(url.value + '/users/me/username', {
-      params: { id: 1 },
-    });
-    username.value = res.data;
-  } catch (err) {
-    if (err instanceof Error) {
-      username.value = 'Failed to get username';
-    }
-  }
-}
-
-function handleIcon(event: Event) {
+async function handleIcon(event: Event) {
   const input = event.target as HTMLInputElement;
   const file = input.files?.[0];
-  if (file) {
-    body.value.icon = file.name;
-  }
+  if (!file) return;
+  body.value.icon = file.name;
+  previewUrl.value = URL.createObjectURL(file);
+  formData.value = new FormData();
+  formData.value.append('icon', file);
 }
 
 async function uploadGame() {
   try {
-    const res = await axios.post(url.value + '/games/create', body.value);
+    const res = await axios.post(url.value + '/games', body.value);
     if (res.status != 200) {
       status.value = res.status;
       error.value = res.data;
+    }
+    if (formData.value) {
+      await axios.post(url.value + '/upload', formData.value, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
     }
   } catch (err) {
     if (err instanceof Error) {
@@ -64,7 +59,7 @@ async function uploadGame() {
       />
       <img
         v-show="body.icon"
-        :src="`src/assets/${body.icon}`"
+        :src="previewUrl"
         class="icon-preview"
         alt="Icon"
       />

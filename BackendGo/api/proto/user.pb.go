@@ -1012,7 +1012,7 @@ func (x *GetUserWishlistRequest) GetId() uint32 {
 
 type GetUserWishlistResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Wishlist      []*Wishlist            `protobuf:"bytes,1,rep,name=wishlist,proto3" json:"wishlist,omitempty"`
+	GameId        []uint32               `protobuf:"varint,1,rep,packed,name=gameId,proto3" json:"gameId,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1047,9 +1047,9 @@ func (*GetUserWishlistResponse) Descriptor() ([]byte, []int) {
 	return file_api_proto_user_proto_rawDescGZIP(), []int{21}
 }
 
-func (x *GetUserWishlistResponse) GetWishlist() []*Wishlist {
+func (x *GetUserWishlistResponse) GetGameId() []uint32 {
 	if x != nil {
-		return x.Wishlist
+		return x.GameId
 	}
 	return nil
 }
@@ -1537,9 +1537,9 @@ const file_api_proto_user_proto_rawDesc = "" +
 	"\x13GetUserInfoResponse\x12*\n" +
 	"\buserInfo\x18\x01 \x01(\v2\x0e.user.UserInfoR\buserInfo\"(\n" +
 	"\x16GetUserWishlistRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\rR\x02id\"E\n" +
-	"\x17GetUserWishlistResponse\x12*\n" +
-	"\bwishlist\x18\x01 \x03(\v2\x0e.user.WishlistR\bwishlist\"$\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\"1\n" +
+	"\x17GetUserWishlistResponse\x12\x16\n" +
+	"\x06gameId\x18\x01 \x03(\rR\x06gameId\"$\n" +
 	"\x12GetUserCartRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\"5\n" +
 	"\x13GetUserCartResponse\x12\x1e\n" +
@@ -1644,37 +1644,36 @@ var file_api_proto_user_proto_depIdxs = []int32{
 	25, // 7: user.GetUsersResponse.users:type_name -> user.User
 	25, // 8: user.CreateUserResponse.user:type_name -> user.User
 	24, // 9: user.GetUserInfoResponse.userInfo:type_name -> user.UserInfo
-	28, // 10: user.GetUserWishlistResponse.wishlist:type_name -> user.Wishlist
-	26, // 11: user.GetUserCartResponse.cart:type_name -> user.Cart
-	14, // 12: user.UserService.GetUsers:input_type -> user.GetUsersRequest
-	16, // 13: user.UserService.CreateUser:input_type -> user.CreateUserRequest
-	18, // 14: user.UserService.GetUserInfo:input_type -> user.GetUserInfoRequest
-	20, // 15: user.WishlistService.GetUserWishlist:input_type -> user.GetUserWishlistRequest
-	4,  // 16: user.WishlistService.AddToWishlist:input_type -> user.AddToWishlistRequest
-	6,  // 17: user.WishlistService.RemoveFromWishlist:input_type -> user.RemoveFromWishlistRequest
-	22, // 18: user.CartService.GetUserCart:input_type -> user.GetUserCartRequest
-	2,  // 19: user.CartService.AddToCart:input_type -> user.AddToCartRequest
-	8,  // 20: user.CartService.RemoveFromCart:input_type -> user.RemoveFromCartRequest
-	10, // 21: user.GameService.GetGames:input_type -> user.GetGamesRequest
-	12, // 22: user.GameService.CreateGame:input_type -> user.CreateGameRequest
-	0,  // 23: user.GameService.DeleteGame:input_type -> user.DeleteGameRequest
-	15, // 24: user.UserService.GetUsers:output_type -> user.GetUsersResponse
-	17, // 25: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	19, // 26: user.UserService.GetUserInfo:output_type -> user.GetUserInfoResponse
-	21, // 27: user.WishlistService.GetUserWishlist:output_type -> user.GetUserWishlistResponse
-	5,  // 28: user.WishlistService.AddToWishlist:output_type -> user.AddToWishlistResponse
-	7,  // 29: user.WishlistService.RemoveFromWishlist:output_type -> user.RemoveFromWishlistResponse
-	23, // 30: user.CartService.GetUserCart:output_type -> user.GetUserCartResponse
-	3,  // 31: user.CartService.AddToCart:output_type -> user.AddToCartResponse
-	9,  // 32: user.CartService.RemoveFromCart:output_type -> user.RemoveFromCartResponse
-	11, // 33: user.GameService.GetGames:output_type -> user.GetGamesResponse
-	13, // 34: user.GameService.CreateGame:output_type -> user.CreateGameResponse
-	1,  // 35: user.GameService.DeleteGame:output_type -> user.DeleteGameResponse
-	24, // [24:36] is the sub-list for method output_type
-	12, // [12:24] is the sub-list for method input_type
-	12, // [12:12] is the sub-list for extension type_name
-	12, // [12:12] is the sub-list for extension extendee
-	0,  // [0:12] is the sub-list for field type_name
+	26, // 10: user.GetUserCartResponse.cart:type_name -> user.Cart
+	14, // 11: user.UserService.GetUsers:input_type -> user.GetUsersRequest
+	16, // 12: user.UserService.CreateUser:input_type -> user.CreateUserRequest
+	18, // 13: user.UserService.GetUserInfo:input_type -> user.GetUserInfoRequest
+	20, // 14: user.WishlistService.GetUserWishlist:input_type -> user.GetUserWishlistRequest
+	4,  // 15: user.WishlistService.AddToWishlist:input_type -> user.AddToWishlistRequest
+	6,  // 16: user.WishlistService.RemoveFromWishlist:input_type -> user.RemoveFromWishlistRequest
+	22, // 17: user.CartService.GetUserCart:input_type -> user.GetUserCartRequest
+	2,  // 18: user.CartService.AddToCart:input_type -> user.AddToCartRequest
+	8,  // 19: user.CartService.RemoveFromCart:input_type -> user.RemoveFromCartRequest
+	10, // 20: user.GameService.GetGames:input_type -> user.GetGamesRequest
+	12, // 21: user.GameService.CreateGame:input_type -> user.CreateGameRequest
+	0,  // 22: user.GameService.DeleteGame:input_type -> user.DeleteGameRequest
+	15, // 23: user.UserService.GetUsers:output_type -> user.GetUsersResponse
+	17, // 24: user.UserService.CreateUser:output_type -> user.CreateUserResponse
+	19, // 25: user.UserService.GetUserInfo:output_type -> user.GetUserInfoResponse
+	21, // 26: user.WishlistService.GetUserWishlist:output_type -> user.GetUserWishlistResponse
+	5,  // 27: user.WishlistService.AddToWishlist:output_type -> user.AddToWishlistResponse
+	7,  // 28: user.WishlistService.RemoveFromWishlist:output_type -> user.RemoveFromWishlistResponse
+	23, // 29: user.CartService.GetUserCart:output_type -> user.GetUserCartResponse
+	3,  // 30: user.CartService.AddToCart:output_type -> user.AddToCartResponse
+	9,  // 31: user.CartService.RemoveFromCart:output_type -> user.RemoveFromCartResponse
+	11, // 32: user.GameService.GetGames:output_type -> user.GetGamesResponse
+	13, // 33: user.GameService.CreateGame:output_type -> user.CreateGameResponse
+	1,  // 34: user.GameService.DeleteGame:output_type -> user.DeleteGameResponse
+	23, // [23:35] is the sub-list for method output_type
+	11, // [11:23] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_api_proto_user_proto_init() }

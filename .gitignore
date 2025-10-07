@@ -8,6 +8,8 @@
 /Backend/.project
 /Backend/.settings/
 
+/BackendGo/uploads
+
 *.log
 *.idea/
 *.iml

@@ -184,7 +184,7 @@ message GetUserWishlistRequest {
 }
 
 message GetUserWishlistResponse {
-  repeated Wishlist wishlist = 1;
+  repeated uint32 gameId = 1;
 }
 
 message GetUserCartRequest {
